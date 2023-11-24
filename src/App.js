@@ -1,25 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { Button, Input, Label, Form, FormGroup } from "reactstrap";
 
-function App() {
+const App = () => {
+  const [check, setCheck] = useState(Array(10).fill(false));
+
+  const handleChange = (item) => {
+    const updateArry = [...check];
+    updateArry[item] = !updateArry[item];
+    setCheck(updateArry);
+  };
+
+  const handleSubmit = () => {
+    console.log("Results : ",check);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <div>
+          <h1>List All Checkbox </h1>
+          {check.map((isChecked, item) => (
+            <Form key={item}>
+              <FormGroup check inline>
+                <Input
+                  type="checkbox"
+                  checked={isChecked}
+                  onChange={() => handleChange(item)}
+                />
+                <Label check>Programming</Label>
+              </FormGroup>
+            </Form>
+          ))}
+        </div>
+      </div>
+
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <div>
+          <Button onClick={handleSubmit} color="primary">
+            Save
+          </Button>
+        </div>
+      </div>
+    </>
   );
-}
+};
 
 export default App;
